@@ -18,16 +18,6 @@ CREATE TABLE Vendas(
 		FOREIGN KEY (cli_cod) REFERENCES Cliente(cli_cod)
 );
 
-CREATE TABLE Parcelas(
-	par_cod 	integer NOT NULL,
-	par_dtVenc	date,
-	par_dtPag 	date,
-	ven_cod		integer,
-	CONSTRAINT PK_Parcelas
-		PRIMARY KEY (par_cod),
-	CONSTRAINT FK_Venda
-		FOREIGN KEY (ven_cod) REFERENCES Vendas(ven_cod)
-);
 
 CREATE TABLE Produto(
 	prod_cod 	integer NOT NULL,
@@ -37,10 +27,22 @@ CREATE TABLE Produto(
 		PRIMARY KEY (prod_cod),
 );
 
+CREATE TABLE Parcelas(
+	par_cod 	integer NOT NULL,
+	par_dtVenc	date,
+	par_dtPag 	date,
+	par_valor	decimal(8,2),
+	ven_cod 	integer NOT NULL,
+	CONSTRAINT PK_Parcelas
+		PRIMARY KEY (par_cod),
+	CONSTRAINT FK_Venda
+		FOREIGN KEY (ven_cod, par_cod)
+);
+
 CREATE TABLE ItensVenda(
 	prod_cod 	integer NOT NULL,
 	ven_cod		integer NOT NULL,
-	itens_preco 	decimal(10),
+	itens_preco 	decimal(8,2),
 	itens_qtde	char(30),
 
 	CONSTRAINT PK_ItensVenda
