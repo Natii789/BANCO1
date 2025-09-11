@@ -1,0 +1,55 @@
+CREATE TABLE Clientes (
+	cli_cod 	integer NOT NULL,
+	cli_nome 	char(30),
+	cli_endereco 	char(50),
+	cli_cpf 	char(14),
+	cli_sexo 	char(1),
+	CONSTRAINT PK_Clientes
+		PRIMARY KEY (cli_cod)
+);
+
+CREATE TABLE Vendas(
+	ven_cod 	integer NOT NULL,
+	ven_data 	date,
+	cli_cod 	integer,
+	CONSTRAINT PK_Vendas
+		PRIMARY KEY (vend_cod),
+	CONSTRAINT FK_Cliente
+		FOREIGN KEY (cli_cod) REFERENCES Cliente(cli_cod)
+);
+
+CREATE TABLE Parcelas(
+	par_cod 	integer NOT NULL,
+	par_dtVenc	date,
+	par_dtPag 	date,
+	ven_cod		integer,
+	CONSTRAINT PK_Parcelas
+		PRIMARY KEY (par_cod),
+	CONSTRAINT FK_Venda
+		FOREIGN KEY (ven_cod) REFERENCES Vendas(ven_cod)
+);
+
+CREATE TABLE Produto(
+	prod_cod 	integer NOT NULL,
+	pros_desc	char(30),
+	prod_estoque 	integer,
+	CONSTRAINT PK_Produto
+		PRIMARY KEY (prod_cod),
+);
+
+CREATE TABLE ItensVenda(
+	prod_cod 	integer NOT NULL,
+	ven_cod		integer NOT NULL,
+	itens_preco 	decimal(10),
+	itens_qtde	char(30),
+
+	CONSTRAINT PK_ItensVenda
+		PRIMARY KEY (itens_cod),
+	CONSTRAINT FK_Venda
+		FOREIGN KEY (ven_cod) REFERENCES Vendas(ven_cod)
+	CONSTRAINT FK_Produto
+		FOREIGN KEY (prod_cod) REFERENCES Produto(prod_cod)
+);
+
+
+
