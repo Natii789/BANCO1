@@ -45,12 +45,10 @@ CREATE TABLE ItensVenda(
 	itens_preco 	decimal(8,2),
 	itens_qtde	char(30),
 
-	CONSTRAINT PK_ItensVenda
-		PRIMARY KEY (itens_cod),
-	CONSTRAINT FK_Venda
-		FOREIGN KEY (ven_cod) REFERENCES Vendas(ven_cod)
-	CONSTRAINT FK_Produto
-		FOREIGN KEY (prod_cod) REFERENCES Produto(prod_cod)
+	CONSTRAINT PK_Parcelas
+		PRIMARY KEY (itens_cod, par_cod),
+	CONSTRAINT PK_ParcelasVendas
+		PRIMARY KEY (ven_cod) REFeRENCES
 );
 
 
